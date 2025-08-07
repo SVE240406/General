@@ -1,18 +1,20 @@
 package ui;
 
+import main.Main;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
-    Panel panel;
+    Main main;
 
-    public KeyboardInputs(Panel panel) {
-        this.panel = panel;
+    public KeyboardInputs(Main main) {
+        this.main = main;
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        panel.getMain().keyTyped(e);
+        main.keyTyped(e);
     }
 
     @Override

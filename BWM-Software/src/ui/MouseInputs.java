@@ -1,19 +1,21 @@
 package ui;
 
+import main.Main;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
-    private Panel panel;
+    private Main main;
 
-    public MouseInputs(Panel panel) {
-        this.panel = panel;
+    public MouseInputs(Main main) {
+        this.main = main;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        main.mouseClicked(e);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        panel.getMain().mouseClicked(e);
+        
     }
 
     @Override

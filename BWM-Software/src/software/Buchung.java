@@ -16,9 +16,6 @@ public class Buchung {
         this.haben = haben;
     }
 
-    public GregorianCalendar getDate() {
-        return date;
-    }
     public String getDateString() {
         if(date == null) return "";
         DATE_FORMAT.setCalendar(date);
@@ -30,17 +27,7 @@ public class Buchung {
     public float getSoll(){
         return soll;
     }
-    public String getSollS() {
-        return getPrice(soll);
-    }
     public float getHaben() {
         return haben;
-    }
-    public String getHabenS() {
-        return getPrice(haben);
-    }
-    public String getPrice(float sh){
-        String ret = DECIMAL_FORMAT.format(sh);
-        return (ret.equals("0,00€"))?"":ret;
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Excel {
     private Konto[] konten;
     private int offsetX, offsetY, offsetY1, offsetY2;
-    private boolean y1;
+    private boolean x1;
 
     private ArrayList<XSSFRow> rows = new ArrayList<>();
     XSSFColor[] colors = new XSSFColor[5];
@@ -36,23 +36,23 @@ public class Excel {
             for(int i = 0; i < konten.length; i++){
                 if(i%2==0) {
                     offsetX = 0;
-                    y1 = true;
-                    offsetY = Math.max(offsetY1, offsetY2);
+                    x1 = true;
+                    offsetY = Math.max(offsetY1, offsetY2)+1;
                     offsetY2 = offsetY;
                 }
                 else {
                     offsetX = 5;
-                    y1 = false;
+                    x1 = false;
                     offsetY = offsetY2;
                 }
                 doOneKonto(konten[i]);
-                if(y1)
+                if(x1)
                     offsetY1 = offsetY;
                 else
                     offsetY2 = offsetY;
             }
 
-            for(int i=0;i<9;i++)
+            for(int i=0;i< rows.size();i++)
                 sh.autoSizeColumn(i);
             FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.home") + "/Documents/" + name + ".xlsx");
             workbook.write(fileOut);
@@ -123,7 +123,21 @@ public class Excel {
         for(int i = 0; i < konto.numOfBuchungen(); i++, offsetY++)
             createBuchung(konto.getBuchung(i));
 
-        createSumms(startRow, offsetY-1);
+        createSumms(startRow, offsetY);
+    }
+
+    private void createNameStyle(KontoTyp typ){
+        nameFont = workbook.createFont();
+        nameFont.setBold(true);
+        switch (typ){
+            case AKTIVES_BK -> nameFont.setColor(colors[0]);
+            case PASSIVES_BK -> nameFont.setColor(colors[1]);
+            case AUFWAND -> nameFont.setColor(colors[2]);
+            case ERLOES -> nameFont.setColor(colors[3]);
+            case GRAU -> nameFont.setColor(colors[4]);
+        }
+        nameStyle = workbook.createCellStyle();
+        nameStyle.setFont(nameFont);
     }
 
     private void createBuchung(Buchung buchung){
@@ -148,26 +162,12 @@ public class Excel {
         summeTxt.setCellStyle(solutionStyle);
 
         Cell summS = rows.get(offsetY).createCell(offsetX+2);
-        summS.setCellFormula("SUM(" + ((offsetX == 0)?"C":"H")+(startRow+1) + ":" + ((offsetX == 0)?"C":"H")+(endRow+1) + ")");
+        summS.setCellFormula("SUM(" + ((offsetX == 0)?"C":"H")+(startRow+1) + ":" + ((offsetX == 0)?"C":"H")+(endRow) + ")");
         summS.setCellStyle(solutionStyle);
 
         Cell summH = rows.get(offsetY).createCell(offsetX+3);
-        summH.setCellFormula("SUM(" + ((offsetX == 0)?"D":"I")+(startRow+1) + ":" + ((offsetX == 0)?"D":"I")+(endRow+1) + ")");
+        summH.setCellFormula("SUM(" + ((offsetX == 0)?"D":"I")+(startRow+1) + ":" + ((offsetX == 0)?"D":"I")+(endRow) + ")");
         summH.setCellStyle(solutionStyle);
         offsetY++;
-    }
-
-    private void createNameStyle(KontoTyp typ){
-        nameFont = workbook.createFont();
-        nameFont.setBold(true);
-        switch (typ){
-            case AKTIVES_BK -> nameFont.setColor(colors[0]);
-            case PASSIVES_BK -> nameFont.setColor(colors[1]);
-            case AUFWAND -> nameFont.setColor(colors[2]);
-            case ERLOES -> nameFont.setColor(colors[3]);
-            case GRAU -> nameFont.setColor(colors[4]);
-        }
-        nameStyle = workbook.createCellStyle();
-        nameStyle.setFont(nameFont);
     }
 }

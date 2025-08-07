@@ -16,9 +16,8 @@ public class BasicButton extends JButton implements ActionListener {
 
     public BasicButton(String text, Rectangle bounds, Main main) {
         super(text);
-        this.bounds = bounds;
-        super.setBounds(this.bounds);
         this.main = main;
+        setBounds(bounds);
         setFont(new Font("Arial", Font.PLAIN, (int) (Main.SCALE * 16)));
         setBackground(Color.LIGHT_GRAY);
         addActionListener(this);

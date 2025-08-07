@@ -60,10 +60,6 @@ public class Main implements Runnable {
         outToExcel.update();
     }
 
-    public void render(Graphics g) {
-
-    }
-
     private void startGameLoop() {
         thread = new Thread(this);
         thread.start();

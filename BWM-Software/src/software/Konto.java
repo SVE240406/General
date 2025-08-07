@@ -43,8 +43,8 @@ public class Konto {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         if(kontoNum != 0)
-            sb.append(KONTO_NUM_FORMAT.format(kontoNum));
-        sb.append(" ").append(name);
+            sb.append(KONTO_NUM_FORMAT.format(kontoNum)).append(" ");
+        sb.append(name);
         return sb.toString();
     }
 }

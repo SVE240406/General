@@ -9,14 +9,13 @@ import static main.Main.*;
 
 public class Panel extends JPanel {
     private MouseInputs mouseInputs;
-    private KeyboardInputs keyboardInputs;
     private Main main;
 
     public Panel(Main main) {
-        mouseInputs = new MouseInputs(this);
         this.main = main;
         setPanelSize();
-        addKeyListener(new KeyboardInputs(this));
+        addKeyListener(new KeyboardInputs(main));
+        mouseInputs = new MouseInputs(main);
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
@@ -24,11 +23,6 @@ public class Panel extends JPanel {
     private void setPanelSize() {
         Dimension size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
         setPreferredSize(size);
-    }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        main.render(g);
     }
 
     public Main getMain() {
