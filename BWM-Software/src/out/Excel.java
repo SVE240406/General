@@ -106,16 +106,14 @@ public class Excel {
         namecell.setCellStyle(nameStyle);
         offsetY++;
         XSSFCell[] cells = new XSSFCell[4];
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++) {
             cells[i] = rows.get(offsetY).createCell(offsetX + i);
+            cells[i].setCellStyle(fieldStyle);
+        }
         cells[0].setCellValue("Datum");
-        cells[0].setCellStyle(fieldStyle);
         cells[1].setCellValue("Gegenkonto");
-        cells[1].setCellStyle(fieldStyle);
         cells[2].setCellValue("Soll");
-        cells[2].setCellStyle(fieldStyle);
         cells[3].setCellValue("Haben");
-        cells[3].setCellStyle(fieldStyle);
         offsetY++;
 
         int startRow = offsetY;
@@ -142,31 +140,33 @@ public class Excel {
 
     private void createBuchung(Buchung buchung){
         XSSFCell[] cells = new XSSFCell[4];
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++) {
             cells[i] = rows.get(offsetY).createCell(offsetX + i);
+            cells[i].setCellStyle(fieldStyle);
+        }
         cells[0].setCellValue(buchung.getDateString());
-        cells[0].setCellStyle(fieldStyle);
         cells[1].setCellValue(buchung.getGegenk().toString());
-        cells[1].setCellStyle(fieldStyle);
         if(buchung.getSoll() == 0f)
             cells[3].setCellValue(buchung.getHaben());
         else
             cells[2].setCellValue(buchung.getSoll());
-        cells[2].setCellStyle(fieldStyle);
-        cells[3].setCellStyle(fieldStyle);
     }
 
     private void createSumms(int startRow, int endRow) {
         Cell summeTxt = rows.get(offsetY).createCell(offsetX+1);
-        summeTxt.setCellValue("Summe");
+        summeTxt.setCellValue("Summe:");
         summeTxt.setCellStyle(solutionStyle);
 
+        boolean left = offsetX == 0;
+
+        char c = left ? 'C':'H';
         Cell summS = rows.get(offsetY).createCell(offsetX+2);
-        summS.setCellFormula("SUM(" + ((offsetX == 0)?"C":"H")+(startRow+1) + ":" + ((offsetX == 0)?"C":"H")+(endRow) + ")");
+        summS.setCellFormula("SUM(" + c + (startRow+1) + ":" + c + endRow + ")");
         summS.setCellStyle(solutionStyle);
 
+        c = left ? 'D':'I';
         Cell summH = rows.get(offsetY).createCell(offsetX+3);
-        summH.setCellFormula("SUM(" + ((offsetX == 0)?"D":"I")+(startRow+1) + ":" + ((offsetX == 0)?"D":"I")+(endRow) + ")");
+        summH.setCellFormula("SUM(" + c + (startRow+1) + ":" + c + (endRow) + ")");
         summH.setCellStyle(solutionStyle);
         offsetY++;
     }

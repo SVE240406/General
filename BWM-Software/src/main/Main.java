@@ -53,11 +53,13 @@ public class Main implements Runnable {
     }
 
     public void update(){
-        startMenu.update();
-        newKonto.update();
-        newBuchung.update();
-        kontoAbschliessen.update();
-        outToExcel.update();
+        switch (State.currentState){
+            case MENU -> startMenu.update();
+            case N_KONTO -> newKonto.update();
+            case BUCHUNG -> newBuchung.update();
+            case K_ABSCHLIESSEN -> kontoAbschliessen.update();
+            case XLSX -> outToExcel.update();
+        }
     }
 
     private void startGameLoop() {
@@ -107,6 +109,7 @@ public class Main implements Runnable {
     public void printBuchungssaetze() {
         for(Buchungssatz buchungssatz : buchungssaetze)
             System.out.println(buchungssatz);
+        System.out.println();
     }
 
     public void xlsx(String filename) {

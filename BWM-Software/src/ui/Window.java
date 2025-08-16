@@ -18,18 +18,5 @@ public class Window {
         jframe.setLocationRelativeTo(null);
 
         jframe.setVisible(true);
-        jframe.addWindowFocusListener(new WindowFocusListener() {
-
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-
-            }
-        });
-
     }
 }
