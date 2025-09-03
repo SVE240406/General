@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 
+import static main.Constants.getCalendar;
 import static main.Main.SCALE;
 
 public class KontoAbschliessen implements Scene, ButtonUsage {
@@ -101,8 +102,7 @@ public class KontoAbschliessen implements Scene, ButtonUsage {
     public void buttonPressed(ActionEvent e) {
         Konto konto = konten[kontoB.getValue()];
         Konto gegenK = konten[gegenKontoB.getValue()];
-        String[] dateParts = datum.get().split("\\.");
-        GregorianCalendar date = new GregorianCalendar(2025, Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[0]));
+        GregorianCalendar date = getCalendar(datum.get());
         float betrag = calculateBetrag(konto);
         if(betrag > 0)
             main.addBuchung(new Buchungssatz(date, gegenK, konto, betrag));

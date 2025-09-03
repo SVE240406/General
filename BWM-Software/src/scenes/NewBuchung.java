@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 
+import static main.Constants.getCalendar;
 import static main.Main.SCALE;
 
 public class NewBuchung implements Scene, ButtonUsage {
@@ -107,8 +108,7 @@ public class NewBuchung implements Scene, ButtonUsage {
 
     @Override
     public void buttonPressed(ActionEvent e) {
-        String[] dateParts = datum.get().split("\\.");
-        GregorianCalendar date = new GregorianCalendar(2025, Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[0]));
+        GregorianCalendar date = getCalendar(datum.get());
         Konto kontoSoll = konten[kontoS.getValue()];
         Konto kontoHaben = konten[kontoH.getValue()];
         float betrag = Float.parseFloat(this.betrag.get());
