@@ -64,7 +64,7 @@ public class Excel {
         }
     }
 
-    private void createColors(){
+    private void createColors(){//aBk           pBk           A            E                SBK, GuV, ...
         int[][] rgbcolors = {{255, 192, 0}, {0, 176, 240}, {255, 0, 0}, {102, 176, 80}, {109, 109, 109}};
         byte[][] rgbs = new byte[rgbcolors.length][rgbcolors[0].length];
         for (int i = 0; i < rgbs.length; i++) {
