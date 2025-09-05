@@ -19,8 +19,8 @@ public class SelectionField extends TypeField implements ButtonUsage {
     private BasicButton[] buttons;
 
     public SelectionField(String text, String[] choices, Rectangle bounds, Main main, Scene source) {
-        this.choices = choices;
         super(text, bounds, main, source);
+        this.choices = choices;
         initButtons();
     }
 
