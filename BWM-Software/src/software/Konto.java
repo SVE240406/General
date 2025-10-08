@@ -35,6 +35,9 @@ public class Konto {
     public Buchung getBuchung(int index){
         return buchungen.get(index);
     }
+    public int getKontoNum() {
+        return kontoNum;
+    }
     public int numOfBuchungen(){
         return buchungen.size();
     }
@@ -46,5 +49,9 @@ public class Konto {
             sb.append(KONTO_NUM_FORMAT.format(kontoNum)).append(" ");
         sb.append(name);
         return sb.toString();
+    }
+
+    public int compareTo(Konto konto) {
+        return Integer.compare(kontoNum, konto.getKontoNum());
     }
 }

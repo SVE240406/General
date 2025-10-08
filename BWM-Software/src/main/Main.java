@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Main implements Runnable {
     public final static float SCALE = 1.875f; //1.875f;
@@ -113,6 +114,7 @@ public class Main implements Runnable {
     }
 
     public void xlsx(String filename) {
+        konten.sort(null);
         excel.setKonten(konten.toArray(new Konto[konten.size()]));
         excel.createFile(filename);
     }
