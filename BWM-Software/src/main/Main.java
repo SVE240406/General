@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class Main implements Runnable {
@@ -114,13 +115,7 @@ public class Main implements Runnable {
     }
 
     public void xlsx(String filename) {
-        konten.sort(new Comparator<Konto>() {
-
-            @Override
-            public int compare(Konto o1, Konto o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        Collections.sort(konten);
         excel.setKonten(konten.toArray(new Konto[konten.size()]));
         excel.createFile(filename);
     }

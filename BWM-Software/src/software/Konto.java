@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import static main.Constants.KONTO_NUM_FORMAT;
 
-public class Konto {
+public class Konto implements Comparable<Konto> {
     private int kontoNum;
     public KontoTyp kontoTyp;
     private String name;
@@ -51,6 +51,7 @@ public class Konto {
         return sb.toString();
     }
 
+    @Override
     public int compareTo(Konto konto) {
         return Integer.compare(kontoNum, konto.getKontoNum());
     }
