@@ -114,7 +114,13 @@ public class Main implements Runnable {
     }
 
     public void xlsx(String filename) {
-        konten.sort(null);
+        konten.sort(new Comparator<Konto>() {
+
+            @Override
+            public int compare(Konto o1, Konto o2) {
+                return o1.compareTo(o2);
+            }
+        });
         excel.setKonten(konten.toArray(new Konto[konten.size()]));
         excel.createFile(filename);
     }
